@@ -35,6 +35,12 @@ export class SongsComponent implements OnInit {
     }
 
       ngOnInit () {
+        this.songService.share.subscribe(cart => { cart
+            this.cart = cart || [];
+            console.log('cart a',cart)
+
+        } )
+
         //  this.songs= await this.songService.getAsyncData().then(data=>{
         //     console.timeEnd('merkez')
         //      return [...data]
@@ -42,7 +48,6 @@ export class SongsComponent implements OnInit {
         this.songService.getProduct().subscribe(data=>this.songs=data)
         console.timeEnd('merkez')
 
-        this.songService.share.subscribe(cart =>  this.cart = cart)
         console.timeEnd('merkez1')
         this.setSongListByCart();
         this.filteredSongs=this.songs;
@@ -91,6 +96,7 @@ export class SongsComponent implements OnInit {
     }
 
     setSongListByCart() {
+        console.log('hey this cart',this.cart)
         let cartIds = this.cart.map(item => item.id);
         let setSongList = this.setSongs();
         cartIds.forEach(id => {
