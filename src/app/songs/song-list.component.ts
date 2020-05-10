@@ -34,25 +34,19 @@ export class SongsComponent implements OnInit {
     constructor(private songService: SongService) {
     }
 
-      ngOnInit () {
-        this.songService.share.subscribe(cart => { cart
-            this.cart = cart || [];
-            console.log('cart a',cart)
-
-        } )
-
-        //  this.songs= await this.songService.getAsyncData().then(data=>{
-        //     console.timeEnd('merkez')
-        //      return [...data]
-        //  })
-        this.songService.getProduct().subscribe(data=>this.songs=data)
-        console.timeEnd('merkez')
-
-        console.timeEnd('merkez1')
+      async ngOnInit () {
+          console.time('merkez')
+         this.songs= await this.songService.getAsyncData().then(data=>{
+             return [...data]
+         })
+        // this.songService.getProduct().subscribe(data=>this.songs=data)
+        this.songService.share.subscribe(cart => { cart=this.cart = cart || [];})
         this.setSongListByCart();
         this.filteredSongs=this.songs;
         this.paginatedSongs = this.filteredSongs.slice(0, this.SONG_PER_PAGE);
         this.pagination();
+        console.timeEnd('merkez')
+
     }
     setSongs() {
         let tempSongs = [];

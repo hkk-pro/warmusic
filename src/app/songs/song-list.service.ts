@@ -26,8 +26,6 @@ export class SongService {
   };
 
   getProduct(): Observable<any> {
-    console.time('merkez')
-    console.time('merkez1')
     return of(Product).pipe();
  }
 
